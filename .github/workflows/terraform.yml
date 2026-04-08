@@ -1,0 +1,28 @@
+name: Terraform Snowflake CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      TF_VAR_username: ${{ secrets.SNOWFLAKE_USER }}
+      TF_VAR_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
