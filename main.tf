@@ -28,12 +28,10 @@ variable "password" {
   sensitive = true
 }
 
-# ✅ Database
 resource "snowflake_database" "demo_db" {
-  name = "DEMO_DB_V2"
+  name = "DEMO_DB_V3"
 }
 
-# ✅ Table (NO schema resource, use PUBLIC directly)
 resource "snowflake_table" "customer_table" {
   database = snowflake_database.demo_db.name
   schema   = "PUBLIC"
