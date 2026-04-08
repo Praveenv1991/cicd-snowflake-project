@@ -8,15 +8,12 @@ terraform {
 }
 
 provider "snowflake" {
-  organization_name = "QNNPHFX"
-  account_name      = "WN06484"
-  user              = var.username
-  password          = var.password
-  role              = "ACCOUNTADMIN"
-}
-
-variable "account" {
-  type = string
+  organization_name         = "QNNPHFX"
+  account_name              = "WN06484"
+  user                      = var.username
+  password                  = var.password
+  role                      = "ACCOUNTADMIN"
+  preview_features_enabled  = ["snowflake_table_resource"]
 }
 
 variable "username" {
