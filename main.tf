@@ -8,12 +8,12 @@ terraform {
 }
 
 provider "snowflake" {
-  organization_name         = "QNNPHFX"
-  account_name              = "WN06484"
-  user                      = var.username
-  password                  = var.password
-  role                      = "ACCOUNTADMIN"
-  preview_features_enabled  = ["snowflake_table_resource"]
+  organization_name        = "QNNPHFX"
+  account_name             = "WN06484"
+  user                     = var.username
+  password                 = var.password
+  role                     = "ACCOUNTADMIN"
+  preview_features_enabled = ["snowflake_table_resource"]
 }
 
 variable "username" {
@@ -26,13 +26,13 @@ variable "password" {
 }
 
 resource "snowflake_database" "demo_db" {
-  name = "DEMO_DB_V3"
+  name = "DEMO_DB_V4"
 }
 
 resource "snowflake_table" "customer_table" {
   database = snowflake_database.demo_db.name
   schema   = "PUBLIC"
-  name     = "CUSTOMERS"
+  name     = "CUSTOMERS_V4"
 
   column {
     name = "ID"
