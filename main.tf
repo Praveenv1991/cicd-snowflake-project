@@ -29,5 +29,5 @@ variable "password" {
 }
 
 resource "snowflake_database" "demo_db" {
-  name = "DEMO_DB"
+  name = "DEMO_DB_V2"
 }
