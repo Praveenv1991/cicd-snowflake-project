@@ -1,16 +1,23 @@
-name: Terraform Snowflake CI/CD
-
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Choose environment"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - prod
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
     env:
-      TF_VAR_account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       TF_VAR_username: ${{ secrets.SNOWFLAKE_USER }}
       TF_VAR_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
 
@@ -24,5 +31,10 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+      - name: Terraform Apply Dev
+        if: ${{ github.event.inputs.environment == 'dev' }}
+        run: terraform apply -auto-approve -var-file="dev.tfvars"
+
+      - name: Terraform Apply Prod
+        if: ${{ github.event.inputs.environment == 'prod' }}
+        run: terraform apply -auto-approve -var-file="prod.tfvars"

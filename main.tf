@@ -25,14 +25,22 @@ variable "password" {
   sensitive = true
 }
 
+variable "database_name" {
+  type = string
+}
+
+variable "table_name" {
+  type = string
+}
+
 resource "snowflake_database" "demo_db" {
-  name = "DEMO_DB_V4"
+  name = var.database_name
 }
 
 resource "snowflake_table" "customer_table" {
   database = snowflake_database.demo_db.name
   schema   = "PUBLIC"
-  name     = "CUSTOMERS_V4"
+  name     = var.table_name
 
   column {
     name = "ID"
